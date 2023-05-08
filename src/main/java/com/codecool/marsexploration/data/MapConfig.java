@@ -1,4 +1,6 @@
 package com.codecool.marsexploration.data;
 
-public record MapConfig(String fileName, int mapWidth, ) {
+import java.util.ArrayList;
+
+public record MapConfig(String fileName, int mapWidth, ArrayList<TerrainConfig> terrainConfigs, ArrayList<ResourceConfig> resourceConfigs) {
 }

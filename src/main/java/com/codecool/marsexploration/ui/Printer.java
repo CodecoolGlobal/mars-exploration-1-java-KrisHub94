@@ -8,9 +8,9 @@ import java.util.HashMap;
 public class Printer {
     public void displayMap(HashMap<Coordinate, String> map) {
         boolean isChecking = true;
-        int row = 1;
+        int row = 0;
         while (isChecking) {
-            Coordinate firstTileOfRow = new Coordinate(row, 1);
+            Coordinate firstTileOfRow = new Coordinate(0, row);
             if(map.get(firstTileOfRow) == null) {
                 isChecking = false;
             }
@@ -22,10 +22,10 @@ public class Printer {
     }
     public void displayRow(HashMap<Coordinate, String> map, int row) {
         boolean isChecking = true;
-        int column = 1;
+        int column = 0;
         ArrayList<String> rowSymbols = new ArrayList<>();
         while (isChecking) {
-            Coordinate nextCoords = new Coordinate(row, column);
+            Coordinate nextCoords = new Coordinate(column, row);
             String nextTile = map.get(nextCoords);
             if(nextTile == null) {
                 isChecking = false;

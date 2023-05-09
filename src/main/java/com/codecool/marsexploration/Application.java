@@ -3,6 +3,7 @@ package com.codecool.marsexploration;
 import com.codecool.marsexploration.data.Coordinate;
 import com.codecool.marsexploration.data.MapConfig;
 import com.codecool.marsexploration.logic.MapManager;
+import com.codecool.marsexploration.logic.ShapeGenerator;
 import com.codecool.marsexploration.ui.Printer;
 
 import java.util.ArrayList;
@@ -18,5 +19,8 @@ public class Application {
         Printer printer = new Printer();
         HashMap<Coordinate, String> map = mapManager.createMap(mapConfig);
         printer.displayMap(map);
+        ShapeGenerator shapeGenerator = new ShapeGenerator();
+        HashMap<Coordinate, String> shape = shapeGenerator.createShape(10, "Y");
+        printer.displayMap(shape);
     }
 }

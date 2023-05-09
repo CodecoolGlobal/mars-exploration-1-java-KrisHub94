@@ -3,6 +3,7 @@ package com.codecool.marsexploration;
 import com.codecool.marsexploration.data.Coordinate;
 import com.codecool.marsexploration.data.MapConfig;
 import com.codecool.marsexploration.logic.MapManager;
+import com.codecool.marsexploration.ui.Printer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,8 @@ public class Application {
         System.out.println(random.nextInt(42));
         MapConfig mapConfig = new MapConfig("test", 30, new ArrayList<>(), new ArrayList<>());
         MapManager mapManager = new MapManager();
+        Printer printer = new Printer();
         HashMap<Coordinate, String> map = mapManager.createMap(mapConfig);
-        System.out.println(map);
+        printer.displayMap(map);
     }
 }

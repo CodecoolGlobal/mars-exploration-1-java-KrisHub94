@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc7b50be-a1a5-4ec1-9451-041eebe3ef91" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/logic/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/logic/MapManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/ui/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/ui/Printer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +84,7 @@
       <updated>1683531645882</updated>
       <workItem from="1683531647269" duration="1684000" />
       <workItem from="1683535137788" duration="803000" />
-      <workItem from="1683616686413" duration="3693000" />
+      <workItem from="1683616686413" duration="5324000" />
     </task>
     <servers />
   </component>

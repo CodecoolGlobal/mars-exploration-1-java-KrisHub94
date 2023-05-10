@@ -34,6 +34,7 @@ public class Application {
         System.out.println("shape2:");
         printer.displayMap(shape2);
         System.out.println("map with shape2:");
+        placementManager.handleResource("I", 5, "Y", map, mapConfig.mapWidth());
         printer.displayMap(map);
     }
 }

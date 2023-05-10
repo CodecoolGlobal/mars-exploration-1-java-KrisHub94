@@ -8,8 +8,14 @@ import java.util.Random;
 import java.util.Set;
 
 public class ShapeGenerator {
+    private final Random random;
+
+    public ShapeGenerator(Random random) {
+        this.random = random;
+    }
+
+
     public HashMap<Coordinate, String> createShape(int area, String symbol) {
-        Random random = new Random();
         int numberOfRows = random.nextInt(area) + 1;
         int leastNumberOfColumns = area - (numberOfRows - 1);
         int numberOfColumns = random.nextInt(area/2) + leastNumberOfColumns;
@@ -31,6 +37,7 @@ public class ShapeGenerator {
         int firstCoordY = random.nextInt(numberOfRows);
         Coordinate firstCoords = new Coordinate(firstCoordX, firstCoordY);
         shape.put(firstCoords, symbol);
+        takenCoord.add(firstCoords);
         addPossibleCoordinatesToList(numberOfColumns, numberOfRows, firstCoords, possibleCoord, takenCoord);
         int counter = 1;
         while (counter < area) {
@@ -47,12 +54,48 @@ public class ShapeGenerator {
         }
         return shape;
     }
+    public HashMap<Coordinate, String> createShape2(int mapSideLength, int areaSize, String symbol) {
+        HashMap<Coordinate, String> shape = createEmptyShape(mapSideLength, mapSideLength);
+
+        Set<Coordinate> possibleCoord = new HashSet<>();
+        Set<Coordinate> takenCoord = new HashSet<>();
+
+        int firstCoordX = random.nextInt(mapSideLength);
+        int firstCoordY = random.nextInt(mapSideLength);
+        Coordinate firstCoords = new Coordinate(firstCoordX, firstCoordY);
+        shape.put(firstCoords, symbol);
+        takenCoord.add(firstCoords);
+        addPossibleCoordinatesToList(mapSideLength, mapSideLength, firstCoords, possibleCoord, takenCoord);
+
+        int lowestX = firstCoordX;
+        int highestX = firstCoordX;
+        int lowestY = firstCoordY;
+        int highestY = firstCoordY;
+        int counter = 1;
+        while (counter < areaSize) {
+            Coordinate[] possibleCoordArray = possibleCoord.toArray(new Coordinate[possibleCoord.size()]);
+            Coordinate nextCoords = possibleCoordArray[random.nextInt(possibleCoordArray.length)];
+            lowestX = nextCoords.x() < lowestX ? nextCoords.x() : lowestX;
+            highestX = nextCoords.x() > highestX ? nextCoords.x() : highestX;
+            lowestY = nextCoords.y() < lowestY ? nextCoords.y() : lowestY;
+            highestY = nextCoords.y() > highestY ? nextCoords.y() : highestY;
+
+            shape.put(nextCoords, symbol);
+            possibleCoord.remove(nextCoords);
+            takenCoord.add(nextCoords);
+            addPossibleCoordinatesToList(mapSideLength, mapSideLength, nextCoords, possibleCoord, takenCoord);
+            counter++;
+            }
+        Coordinate shapeFrame = new Coordinate((highestX - lowestX +1), (highestY - lowestY + 1));
+        System.out.println(shapeFrame);
+        return shape;
+    }
 
     private void addPossibleCoordinatesToList(int numberOfColumns, int numberOfRows, Coordinate coordToCheck, Set<Coordinate> possibleCoord, Set<Coordinate> takenCoord) {
         for (int x = coordToCheck.x() - 1; x <= coordToCheck.x() + 1; x++) {
-            if (x >= 0 && x <= numberOfColumns) {
+            if (x >= 0 && x <= numberOfColumns - 1) {
                 for (int y = coordToCheck.y() - 1; y <= coordToCheck.y() + 1; y++) {
-                    if (y >= 0 && y <= numberOfRows) {
+                    if (y >= 0 && y <= numberOfRows - 1) {
                         Coordinate coordinate = new Coordinate(x, y);
                         if (coordinate != coordToCheck && !takenCoord.contains(coordinate)) {
                             possibleCoord.add(coordinate);

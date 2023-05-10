@@ -19,8 +19,9 @@ public class Application {
         Printer printer = new Printer();
         HashMap<Coordinate, String> map = mapManager.createMap(mapConfig);
         printer.displayMap(map);
-        ShapeGenerator shapeGenerator = new ShapeGenerator();
-        HashMap<Coordinate, String> shape = shapeGenerator.createShape(10, "Y");
+        ShapeGenerator shapeGenerator = new ShapeGenerator(random);
+        //HashMap<Coordinate, String> shape = shapeGenerator.createShape(10, "Y");
+        HashMap<Coordinate, String> shape = shapeGenerator.createShape2(30, 10, "^");
         printer.displayMap(shape);
     }
 }

@@ -2,10 +2,8 @@ package com.codecool.marsexploration.logic;
 
 import com.codecool.marsexploration.data.Coordinate;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ShapeGenerator {
     private final Random random;
@@ -88,7 +86,14 @@ public class ShapeGenerator {
             }
         Coordinate shapeFrame = new Coordinate((highestX - lowestX +1), (highestY - lowestY + 1));
         System.out.println(shapeFrame);
-        return shape;
+
+        HashMap<Coordinate, String> shapeResetToZeroCoords = new HashMap<>();
+        for (Map.Entry<Coordinate, String> entry : shape.entrySet()) {
+            shapeResetToZeroCoords.put(new Coordinate(
+                    entry.getKey().x() - lowestX, entry.getKey().y() - lowestY),
+                    entry.getValue());
+        }
+        return shapeResetToZeroCoords;
     }
 
     private void addPossibleCoordinatesToList(int numberOfColumns, int numberOfRows, Coordinate coordToCheck, Set<Coordinate> possibleCoord, Set<Coordinate> takenCoord) {

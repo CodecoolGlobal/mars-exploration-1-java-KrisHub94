@@ -93,6 +93,11 @@ public class ShapeGenerator {
                     entry.getKey().x() - lowestX, entry.getKey().y() - lowestY),
                     entry.getValue());
         }
+        Set<Coordinate> possibleRessourceCoords = new HashSet<>();
+        for (Coordinate coordinate : possibleCoord) {
+            possibleRessourceCoords.add(new Coordinate(coordinate.x() - lowestX, coordinate.y()) - lowestY));
+        }
+        System.out.println(possibleRessourceCoords);
         return shapeResetToZeroCoords;
     }
 

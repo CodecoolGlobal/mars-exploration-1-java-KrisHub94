@@ -3,7 +3,6 @@ package com.codecool.marsexploration.logic;
 import com.codecool.marsexploration.data.Coordinate;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ShapeGenerator {
     private final Random random;
@@ -18,22 +17,11 @@ public class ShapeGenerator {
         int leastNumberOfColumns = area - (numberOfRows - 1);
         int numberOfColumns = random.nextInt(area/2) + leastNumberOfColumns;
         HashMap<Coordinate, String> shape = createEmptyShape(numberOfColumns, numberOfRows);
-        /*int counter = 0;
-        while (counter < area) {
-            int randomRow = random.nextInt(numberOfRows);
-            int randomColumn = random.nextInt(numberOfColumns);
-            Coordinate nextCoords = new Coordinate(randomColumn, randomRow);
-            if(shape.get(nextCoords).equals(" ")) {
-                shape.put(nextCoords, symbol);
-                counter++;
-            }
-        }*/
+
         Set<Coordinate> possibleCoord = new HashSet<>();
         Set<Coordinate> takenCoord = new HashSet<>();
 
-        int firstCoordX = random.nextInt(numberOfColumns);
-        int firstCoordY = random.nextInt(numberOfRows);
-        Coordinate firstCoords = new Coordinate(firstCoordX, firstCoordY);
+        Coordinate firstCoords = getFirstCoordinates(numberOfColumns);
         shape.put(firstCoords, symbol);
         takenCoord.add(firstCoords);
         addPossibleCoordinatesToList(numberOfColumns, numberOfRows, firstCoords, possibleCoord, takenCoord);
@@ -58,46 +46,65 @@ public class ShapeGenerator {
         Set<Coordinate> possibleCoord = new HashSet<>();
         Set<Coordinate> takenCoord = new HashSet<>();
 
-        int firstCoordX = random.nextInt(mapSideLength);
-        int firstCoordY = random.nextInt(mapSideLength);
-        Coordinate firstCoords = new Coordinate(firstCoordX, firstCoordY);
-        shape.put(firstCoords, symbol);
-        takenCoord.add(firstCoords);
-        addPossibleCoordinatesToList(mapSideLength, mapSideLength, firstCoords, possibleCoord, takenCoord);
+        Coordinate firstCoords = getFirstCoordinates(mapSideLength);
+        handleNewCoordinatesForShape(mapSideLength, symbol, shape, possibleCoord, takenCoord, firstCoords);
 
-        int lowestX = firstCoordX;
-        int highestX = firstCoordX;
-        int lowestY = firstCoordY;
-        int highestY = firstCoordY;
+        int lowestX = firstCoords.x();
+        int highestX = firstCoords.x();
+        int lowestY = firstCoords.y();
+        int highestY = firstCoords.y();
         int counter = 1;
         while (counter < areaSize) {
-            Coordinate[] possibleCoordArray = possibleCoord.toArray(new Coordinate[possibleCoord.size()]);
-            Coordinate nextCoords = possibleCoordArray[random.nextInt(possibleCoordArray.length)];
+            Coordinate nextCoords = getNextCoords(possibleCoord);
+
             lowestX = nextCoords.x() < lowestX ? nextCoords.x() : lowestX;
             highestX = nextCoords.x() > highestX ? nextCoords.x() : highestX;
             lowestY = nextCoords.y() < lowestY ? nextCoords.y() : lowestY;
             highestY = nextCoords.y() > highestY ? nextCoords.y() : highestY;
 
-            shape.put(nextCoords, symbol);
-            possibleCoord.remove(nextCoords);
-            takenCoord.add(nextCoords);
-            addPossibleCoordinatesToList(mapSideLength, mapSideLength, nextCoords, possibleCoord, takenCoord);
+            handleNewCoordinatesForShape(mapSideLength, symbol, shape, possibleCoord, takenCoord, nextCoords);
             counter++;
             }
-        Coordinate shapeFrame = new Coordinate((highestX - lowestX +1), (highestY - lowestY + 1));
-        System.out.println(shapeFrame);
+        //Coordinate shapeFrame = new Coordinate((highestX - lowestX +1), (highestY - lowestY + 1));
+        HashMap<Coordinate, String> shapeResetToZeroCoords = setShapeCoordinatesToZero(shape, lowestX, lowestY);
+        //Set<Coordinate> possibleRessourceCoords = getPossibleRessourceCoords(possibleCoord, lowestX, lowestY);
+        return shapeResetToZeroCoords;
+    }
 
+    private Coordinate getNextCoords(Set<Coordinate> possibleCoord) {
+        Coordinate[] possibleCoordArray = possibleCoord.toArray(new Coordinate[possibleCoord.size()]);
+        Coordinate nextCoords = possibleCoordArray[random.nextInt(possibleCoordArray.length)];
+        return nextCoords;
+    }
+
+    private void handleNewCoordinatesForShape(int mapSideLength, String symbol, HashMap<Coordinate, String> shape, Set<Coordinate> possibleCoord, Set<Coordinate> takenCoord, Coordinate newCoordinates) {
+        if (!possibleCoord.isEmpty()) {
+            possibleCoord.remove(newCoordinates);
+        }
+        shape.put(newCoordinates, symbol);
+        takenCoord.add(newCoordinates);
+        addPossibleCoordinatesToList(mapSideLength, mapSideLength, newCoordinates, possibleCoord, takenCoord);
+    }
+
+    private Coordinate getFirstCoordinates(int mapSideLength) {
+        return new Coordinate(random.nextInt(mapSideLength), random.nextInt(mapSideLength));
+    }
+
+    /*private static Set<Coordinate> getPossibleRessourceCoords(Set<Coordinate> possibleCoord, int lowestX, int lowestY) {
+        Set<Coordinate> possibleRessourceCoords = new HashSet<>();
+        for (Coordinate coordinate : possibleCoord) {
+            possibleRessourceCoords.add(new Coordinate(coordinate.x() - lowestX, coordinate.y() - lowestY));
+        }
+        return possibleRessourceCoords;
+    }*/
+
+    private static HashMap<Coordinate, String> setShapeCoordinatesToZero(HashMap<Coordinate, String> shape, int lowestX, int lowestY) {
         HashMap<Coordinate, String> shapeResetToZeroCoords = new HashMap<>();
         for (Map.Entry<Coordinate, String> entry : shape.entrySet()) {
             shapeResetToZeroCoords.put(new Coordinate(
                     entry.getKey().x() - lowestX, entry.getKey().y() - lowestY),
                     entry.getValue());
         }
-        Set<Coordinate> possibleRessourceCoords = new HashSet<>();
-        for (Coordinate coordinate : possibleCoord) {
-            possibleRessourceCoords.add(new Coordinate(coordinate.x() - lowestX, coordinate.y() - lowestY));
-        }
-        System.out.println(possibleRessourceCoords);
         return shapeResetToZeroCoords;
     }
 

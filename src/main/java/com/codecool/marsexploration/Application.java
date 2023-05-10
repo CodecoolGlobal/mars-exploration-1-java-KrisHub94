@@ -22,7 +22,7 @@ public class Application {
         HashMap<Coordinate, String> map = mapManager.createMap(mapConfig);
         System.out.println("empty map:");
         printer.displayMap(map);
-        ShapeGenerator shapeGenerator = new ShapeGenerator();
+        ShapeGenerator shapeGenerator = new ShapeGenerator(random);
         HashMap<Coordinate, String> shape1 = shapeGenerator.createShape(10, "Y");
         HashMap<Coordinate, String> shape2 = shapeGenerator.createShape(15, "Y");
         placementManager.handleShape(map, shape1, mapConfig);

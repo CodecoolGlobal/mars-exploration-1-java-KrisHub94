@@ -31,6 +31,7 @@ public class ShapeGenerator {
         int firstCoordY = random.nextInt(numberOfRows);
         Coordinate firstCoords = new Coordinate(firstCoordX, firstCoordY);
         shape.put(firstCoords, symbol);
+        takenCoord.add(firstCoords);
         addPossibleCoordinatesToList(numberOfColumns, numberOfRows, firstCoords, possibleCoord, takenCoord);
         int counter = 1;
         while (counter < area) {

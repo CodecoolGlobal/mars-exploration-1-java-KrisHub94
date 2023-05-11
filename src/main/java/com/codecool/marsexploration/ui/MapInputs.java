@@ -9,7 +9,8 @@ import java.util.Random;
 public class MapInputs {
     private final Scanner scanner = new Scanner(System.in);
     private String mapName;
-    private List<Integer> mountainsSizes, pitsSizes;
+    private List<Integer> mountainsSizes = new ArrayList<>();
+    private List<Integer> pitsSizes = new ArrayList<>();
     private int mapWidth = 0, mineralsAmount = 0, waterAmount = 0;
     private final Random random = new Random(); //TODO: rethink random instances - refactoring
 
@@ -18,7 +19,7 @@ public class MapInputs {
         System.out.println("Choose either '1' to enter your own or '2' for random values.");
         int decision = scanner.nextInt();
         if (decision == 1) {
-            while (mapWidth == 0 || mountainsSizes.size() == 0 || pitsSizes == null || mineralsAmount == 0 || waterAmount == 0) {
+            while (mapWidth == 0 || mountainsSizes.size() == 0 || pitsSizes.size() == 0 || mineralsAmount == 0 || waterAmount == 0) {
                 mapWidth = chooseMapWidth();
                 mountainsSizes = chooseTerrainAmountAndSizes(mountainsSizes);
                 pitsSizes = chooseTerrainAmountAndSizes(pitsSizes);
@@ -62,14 +63,13 @@ public class MapInputs {
     }
 
     public List<Integer> chooseTerrainAmountAndSizes(List<Integer> terrainsSizes) {
-        System.out.println("Enter one integer for one terrain-entity.\nType 'q' to quit if you have finished or simply want to quit.):");
+        System.out.println("Enter one integer for one terrain-entity. (Type '0' to finish):");
         while (true) {
-            String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("q")) {
+            int number = scanner.nextInt();
+            if (number == 0) {
                 break;
             }
             try {
-                int number = Integer.parseInt(input);
                 terrainsSizes.add(number);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input! Please enter an integer or 'q' to quit.");

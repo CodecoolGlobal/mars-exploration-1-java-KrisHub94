@@ -1,6 +1,6 @@
 package com.codecool.marsexploration.data;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public record TerrainConfig (String symbol, ArrayList<Integer> areas ){
+public record TerrainConfig (String symbol, List<Integer> areas ){
 }

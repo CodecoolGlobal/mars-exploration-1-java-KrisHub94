@@ -10,12 +10,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class PlacementManager {
+
+    private final Random random;
+
+    public PlacementManager(Random random) {
+        this.random = random;
+    }
     public void handleShape(HashMap<Coordinate, String> map, HashMap<Coordinate, String> shape, MapConfig mapConfig) {
         Set<Coordinate> possibleCoordinates = map.keySet().stream().filter(coordinate -> checkForShape(map, shape, coordinate, mapConfig)).collect(Collectors.toSet());
         if(possibleCoordinates.isEmpty()) {
             return;
         }
-        Random random = new Random();
         int randomIndex = random.nextInt(possibleCoordinates.size());
         Coordinate targetCoordinate = possibleCoordinates.stream().toList().get(randomIndex);
         placeShape(map, shape, targetCoordinate);

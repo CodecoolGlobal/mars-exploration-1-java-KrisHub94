@@ -7,15 +7,11 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class MapInputs {
-
     private final Scanner scanner = new Scanner(System.in);
-    String mapName;
-    int mapWidth = 0;
-    List<Integer> mountainsSizes = new ArrayList<>();
-    List<Integer> pitsSizes = new ArrayList<>();
-    int mineralsAmount = 0;
-    int waterAmount = 0;
-    private final Random random = new Random();
+    private String mapName;
+    private List<Integer> mountainsSizes, pitsSizes;
+    private int mapWidth = 0, mineralsAmount = 0, waterAmount = 0;
+    private final Random random = new Random(); //TODO: rethink random instances - refactoring
 
     public void askUserForData() {
         mapName = chooseMapName();
@@ -100,7 +96,7 @@ public class MapInputs {
         return random.nextInt(50) + 1;
     }
 
-    public List<Integer> generateRandomList() {
+    private List<Integer> generateRandomList() {
         List<Integer> randomList = new ArrayList<>();
         int listSize = random.nextInt(5) + 1;
 
@@ -109,5 +105,27 @@ public class MapInputs {
         }
 
         return randomList;
+    }
+
+    public String getMapName() {
+        return mapName;
+    }
+    public int getMapWidth() {
+        return mapWidth;
+    }
+    public List<Integer> getMountainsSizes() {
+        return mountainsSizes;
+    }
+
+    public List<Integer> getPitsSizes() {
+        return pitsSizes;
+    }
+
+    public int getMineralsAmount() {
+        return mineralsAmount;
+    }
+
+    public int getWaterAmount() {
+        return waterAmount;
     }
 }

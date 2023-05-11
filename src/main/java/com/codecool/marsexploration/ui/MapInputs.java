@@ -18,7 +18,7 @@ public class MapInputs {
         System.out.println("Choose either '1' to enter your own or '2' for random values.");
         int decision = scanner.nextInt();
         if (decision == 1) {
-            while (mapWidth == 0 || mountainsSizes == null || pitsSizes == null || mineralsAmount == 0 || waterAmount == 0) {
+            while (mapWidth == 0 || mountainsSizes.size() == 0 || pitsSizes == null || mineralsAmount == 0 || waterAmount == 0) {
                 mapWidth = chooseMapWidth();
                 mountainsSizes = chooseTerrainAmountAndSizes(mountainsSizes);
                 pitsSizes = chooseTerrainAmountAndSizes(pitsSizes);

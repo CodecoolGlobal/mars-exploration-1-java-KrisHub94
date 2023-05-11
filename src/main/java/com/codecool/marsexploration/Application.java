@@ -23,8 +23,8 @@ public class Application {
         System.out.println("empty map:");
         printer.displayMap(map);
         ShapeGenerator shapeGenerator = new ShapeGenerator(random);
-        HashMap<Coordinate, String> shape1 = shapeGenerator.createShape(10, "Y");
-        HashMap<Coordinate, String> shape2 = shapeGenerator.createShape(15, "Y");
+        HashMap<Coordinate, String> shape1 = shapeGenerator.createShape2(30,10, "Y");
+        HashMap<Coordinate, String> shape2 = shapeGenerator.createShape2(30,15, "Y");
         placementManager.handleShape(map, shape1, mapConfig);
         System.out.println("shape1:");
         printer.displayMap(shape1);

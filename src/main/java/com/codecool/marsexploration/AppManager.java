@@ -8,6 +8,7 @@ import com.codecool.marsexploration.logic.ConfigValidator;
 import com.codecool.marsexploration.logic.MapManager;
 import com.codecool.marsexploration.logic.PlacementManager;
 import com.codecool.marsexploration.logic.ShapeGenerator;
+import com.codecool.marsexploration.logic.writer.TextFileWriter;
 import com.codecool.marsexploration.ui.MapInputs;
 import com.codecool.marsexploration.ui.Printer;
 
@@ -29,9 +30,12 @@ public class AppManager {
     private List<Integer> mountainsSizes = new ArrayList<>(), pitsSizes = new ArrayList<>();
     private int mapWidth, mineralsAmount, waterAmount;
     private MapInputs mapInputs = new MapInputs();
+    TextFileWriter writer = new TextFileWriter();
 
 
     public void run() {
+        mapName = mapInputs.chooseMapName();
+
         boolean isUserCreated = mapInputs.askUserForData();
         if(isUserCreated) {
             boolean isConfigValid = false;
@@ -89,6 +93,7 @@ public class AppManager {
         placeShapes(createdShapes, mapConfig);
         placeResources(mapConfig, createdMap);
         printer.displayMap(createdMap);
+        writer.writeMap(mapName, createdMap);
     }
 
     public List<HashMap> createShapes(MapConfig mapConfig) {

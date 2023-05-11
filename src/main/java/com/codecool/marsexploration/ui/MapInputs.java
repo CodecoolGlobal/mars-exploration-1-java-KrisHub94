@@ -19,7 +19,6 @@ public class MapInputs {
     private final Random random = new Random(); //TODO: rethink random instances - refactoring
 
     public boolean askUserForData() {
-        mapName = chooseMapName();
         int decision = 0;
         while (decision != 1 && decision != 2 ) {
             System.out.println("Choose either '1' to enter your own or '2' for random values.");
@@ -38,6 +37,7 @@ public class MapInputs {
         while (true) {
             String newMapName = scanner.nextLine();
             if (newMapName.matches("[a-zA-Z ]+")) {
+
                 return newMapName;
             } else {
                 System.out.println("Invalid input. Please enter a valid name (letters are a must, numbers can be used.");

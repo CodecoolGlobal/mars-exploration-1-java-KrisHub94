@@ -7,8 +7,7 @@
     <list default="true" id="dc7b50be-a1a5-4ec1-9451-041eebe3ef91" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/AppManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/AppManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/logic/MapManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/logic/MapManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/logic/ShapeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/logic/ShapeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/logic/writer/TextFileWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/logic/writer/TextFileWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/ui/MapInputs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/ui/MapInputs.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,7 +89,7 @@
       <workItem from="1683535137788" duration="803000" />
       <workItem from="1683616686413" duration="14090000" />
       <workItem from="1683703467284" duration="14896000" />
-      <workItem from="1683790035654" duration="14305000" />
+      <workItem from="1683790035654" duration="15912000" />
     </task>
     <servers />
   </component>

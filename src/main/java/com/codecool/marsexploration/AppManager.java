@@ -26,39 +26,62 @@ public class AppManager {
     HashMap<Coordinate, String> createdMap;
 
     private String mapName;
-    private List<Integer> mountainsSizes, pitsSizes;
+    private List<Integer> mountainsSizes = new ArrayList<>(), pitsSizes = new ArrayList<>();
     private int mapWidth, mineralsAmount, waterAmount;
+    private MapInputs mapInputs = new MapInputs();
+
 
     public void run() {
-        getAllData();
-        createNewMap();
-
-    }
-
-    private void getAllData() {
-        MapInputs mapInputs = new MapInputs();
-        mapInputs.askUserForData();
-
-        mapName = mapInputs.getMapName();
-        mapWidth = mapInputs.getMapWidth();
-        mountainsSizes = mapInputs.getMountainsSizes();
-        pitsSizes = mapInputs.getPitsSizes();
-        mineralsAmount = mapInputs.getMineralsAmount();
-        waterAmount = mapInputs.getWaterAmount();
-    }
-
-    private void createNewMap() {
-        List terrainConfig = new ArrayList<>();
-        terrainConfig.add(new TerrainConfig("^", mountainsSizes));
-        terrainConfig.add(new TerrainConfig("#", pitsSizes));
-        List resourceConfig = new ArrayList<>();
-        resourceConfig.add(new ResourceConfig("*", mineralsAmount, "^"));
-        resourceConfig.add(new ResourceConfig("~", waterAmount, "#"));
-        MapConfig mapConfig = new MapConfig(mapName, mapWidth, terrainConfig, resourceConfig);
-        if(!configValidator.validateConfig(mapConfig)) {
-            System.out.println("not valid");
-            return;
+        boolean isUserCreated = mapInputs.askUserForData();
+        if(isUserCreated) {
+            boolean isConfigValid = false;
+            while (!isConfigValid) {
+                MapConfig mapConfig = createUserConfig();
+                boolean validatorResult = configValidator.validateConfig(mapConfig);
+                if(validatorResult) {
+                    isConfigValid = true;
+                    createNewMap(mapConfig);
+                }
+            }
         }
+        else {
+            boolean isConfigValid = false;
+            while (!isConfigValid) {
+                MapConfig mapConfig = createRandomConfig();
+                boolean validatorResult = configValidator.validateConfig(mapConfig);
+                if(validatorResult) {
+                    isConfigValid = true;
+                    createNewMap(mapConfig);
+                }
+            }
+
+        }
+        ;
+
+    }
+
+    private MapConfig createUserConfig() {
+        mapWidth = mapInputs.chooseMapWidth();
+        mountainsSizes = mapInputs.chooseTerrainAmountAndSizes(mountainsSizes);
+        pitsSizes = mapInputs.chooseTerrainAmountAndSizes(pitsSizes);
+        mineralsAmount = mapInputs.chooseResourceAmount();
+        waterAmount = mapInputs.chooseResourceAmount();
+        MapConfig mapConfig = mapManager.createMapConfig(mountainsSizes, pitsSizes, mineralsAmount, waterAmount, mapName, mapWidth);
+        return mapConfig;
+    }
+    private MapConfig createRandomConfig() {
+        mapWidth = mapInputs.generateRandomInteger();
+        mountainsSizes = mapInputs.generateRandomList();
+        pitsSizes = mapInputs.generateRandomList();
+        mineralsAmount = mapInputs.generateRandomInteger();
+        waterAmount = mapInputs.generateRandomInteger();
+        MapConfig mapConfig = mapManager.createMapConfig(mountainsSizes, pitsSizes, mineralsAmount, waterAmount, mapName, mapWidth);
+        return mapConfig;
+    }
+
+    private void createNewMap(MapConfig mapConfig) {
+
+
         createdMap = mapManager.createMap(mapConfig);
 
         List <HashMap> createdShapes = createShapes(mapConfig);
@@ -73,8 +96,6 @@ public class AppManager {
         for(TerrainConfig terrainConfig: mapConfig.terrainConfigs())  {
             for (Integer area : terrainConfig.areas()) {
                 HashMap<Coordinate, String> newShape = shapeGenerator.createShape2(mapWidth, area, terrainConfig.symbol());
-                System.out.println("shape:");
-                printer.displayMap(newShape);
                 allShapes.add(newShape);
             }
         };

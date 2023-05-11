@@ -105,7 +105,6 @@ public class ShapeGenerator {
                     entry.getKey().x() - lowestX, entry.getKey().y() - lowestY),
                     entry.getValue());
         }
-        System.out.println("test");
         return shapeResetToZeroCoords;
     }
 

@@ -1,5 +1,9 @@
 package com.codecool.marsexploration.ui;
 
+import com.codecool.marsexploration.data.MapConfig;
+import com.codecool.marsexploration.data.ResourceConfig;
+import com.codecool.marsexploration.data.TerrainConfig;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -14,26 +18,19 @@ public class MapInputs {
     private int mapWidth = 0, mineralsAmount = 0, waterAmount = 0;
     private final Random random = new Random(); //TODO: rethink random instances - refactoring
 
-    public void askUserForData() {
+    public boolean askUserForData() {
         mapName = chooseMapName();
-        System.out.println("Choose either '1' to enter your own or '2' for random values.");
-        int decision = scanner.nextInt();
-        if (decision == 1) {
-            while (mapWidth == 0 || mountainsSizes.size() == 0 || pitsSizes.size() == 0 || mineralsAmount == 0 || waterAmount == 0) {
-                mapWidth = chooseMapWidth();
-                mountainsSizes = chooseTerrainAmountAndSizes(mountainsSizes);
-                pitsSizes = chooseTerrainAmountAndSizes(pitsSizes);
-                mineralsAmount = chooseResourceAmount();
-                waterAmount = chooseResourceAmount();
-            }
-        } else if (decision == 2) {
-            mapWidth = generateRandomInteger();
-            mountainsSizes = generateRandomList();
-            pitsSizes = generateRandomList();
-            mineralsAmount = generateRandomInteger();
-            waterAmount = generateRandomInteger();
+        int decision = 0;
+        while (decision != 1 && decision != 2 ) {
+            System.out.println("Choose either '1' to enter your own or '2' for random values.");
+            decision = scanner.nextInt();
         }
-        scanner.close();
+        if (decision == 1) {
+               return true;
+        } else if (decision == 2) {
+            return false;
+        }
+        return false;
     }
 
     public String chooseMapName() {
@@ -96,7 +93,7 @@ public class MapInputs {
         return random.nextInt(50) + 1;
     }
 
-    private List<Integer> generateRandomList() {
+    public List<Integer> generateRandomList() {
         List<Integer> randomList = new ArrayList<>();
         int listSize = random.nextInt(5) + 1;
 

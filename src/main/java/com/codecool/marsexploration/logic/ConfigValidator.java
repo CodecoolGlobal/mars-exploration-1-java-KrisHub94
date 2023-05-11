@@ -4,17 +4,16 @@ import com.codecool.marsexploration.data.MapConfig;
 import com.codecool.marsexploration.data.ResourceConfig;
 import com.codecool.marsexploration.data.TerrainConfig;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class configValidator {
+public class ConfigValidator {
     private final int MAX_COVERAGE_PERCENT = 90;
 
     public boolean validateConfig(MapConfig configs) {
         double mapSize = Math.pow(configs.mapWidth(), 2);
         double sumOfTerrainOccupation = getSumOfTerrainOccupation(configs.terrainConfigs());
         double sumOfRessourceOccupation = getSumOfResourceOccupation(configs.resourceConfigs());
-        return (mapSize/100)*MAX_COVERAGE_PERCENT >= (sumOfTerrainOccupation + sumOfRessourceOccupation) ? true : false;
+        return Math.round((mapSize/100)*MAX_COVERAGE_PERCENT) >= (sumOfTerrainOccupation + sumOfRessourceOccupation) ? true : false;
     }
 
     private static double getSumOfResourceOccupation(List<ResourceConfig> ressources) {

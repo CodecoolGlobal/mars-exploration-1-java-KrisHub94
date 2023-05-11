@@ -100,7 +100,7 @@ public class AppManager {
         List <HashMap> allShapes = new ArrayList<>();
         for(TerrainConfig terrainConfig: mapConfig.terrainConfigs())  {
             for (Integer area : terrainConfig.areas()) {
-                HashMap<Coordinate, String> newShape = shapeGenerator.createShape2(mapWidth, area, terrainConfig.symbol());
+                HashMap<Coordinate, String> newShape = shapeGenerator.createShape(mapWidth, area, terrainConfig.symbol());
                 allShapes.add(newShape);
             }
         };

@@ -22,7 +22,7 @@ class ShapeGeneratorTest {
             //"1, 0, Y, 0"
     })
     void createShape2amountOfShapeFieldsTest(int mapWidth, int shapeSize, String symbol, int expected) {
-        Map<Coordinate, String> shape = generator.createShape2(mapWidth, shapeSize, symbol);
+        Map<Coordinate, String> shape = generator.createShape(mapWidth, shapeSize, symbol);
         Map<Coordinate, String> shapeFields = shape.entrySet().stream()
                 .filter(entry -> entry.getValue().equals(symbol))
                 .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
@@ -36,7 +36,7 @@ class ShapeGeneratorTest {
             //"1, 0, Y, 0"
     })
     void createShape2ConnectionOfFieldsTest(int mapWidth, int shapeSize, String symbol, int expected) {
-        Map<Coordinate, String> shape = generator.createShape2(mapWidth, shapeSize, symbol);
+        Map<Coordinate, String> shape = generator.createShape(mapWidth, shapeSize, symbol);
         Map<Coordinate, String> shapeFields = shape.entrySet().stream()
                 .filter(entry -> entry.getValue().equals(symbol))
                 .filter(entry -> hasNeighbor(entry.getKey(), shape))

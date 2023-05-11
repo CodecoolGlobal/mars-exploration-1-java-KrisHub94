@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="dc7b50be-a1a5-4ec1-9451-041eebe3ef91" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/logic/PlacementManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/logic/PlacementManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,11 +85,23 @@
       <workItem from="1683531647269" duration="1684000" />
       <workItem from="1683535137788" duration="803000" />
       <workItem from="1683616686413" duration="14090000" />
-      <workItem from="1683703467284" duration="14606000" />
+      <workItem from="1683703467284" duration="14896000" />
+      <workItem from="1683790035654" duration="2865000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

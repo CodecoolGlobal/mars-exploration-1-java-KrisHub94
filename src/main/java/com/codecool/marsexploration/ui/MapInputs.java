@@ -1,68 +1,53 @@
 package com.codecool.marsexploration.ui;
 
-import com.codecool.marsexploration.data.MapConfig;
-import com.codecool.marsexploration.data.ResourceConfig;
-import com.codecool.marsexploration.data.TerrainConfig;
+import com.codecool.marsexploration.helper.Input;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Random;
 
 public class MapInputs {
-    private final Scanner scanner = new Scanner(System.in);
-    private String mapName;
-    private List<Integer> mountainsSizes = new ArrayList<>();
-    private List<Integer> pitsSizes = new ArrayList<>();
-    private int mapWidth = 0, mineralsAmount = 0, waterAmount = 0;
     private final Random random = new Random(); //TODO: rethink random instances - refactoring
+
+    Input input;
+    public MapInputs(Input input) {
+        this.input = input;
+    }
 
     public boolean askUserForData() {
         int decision = 0;
         while (decision != 1 && decision != 2 ) {
             System.out.println("Choose either '1' to enter your own or '2' for random values.");
-            decision = scanner.nextInt();
+            try {
+                //decision = new Scanner(System.in).nextInt();
+                decision = input.getUserInputInt();
+            } catch(NumberFormatException e) {
+
+            }
+
         }
-        if (decision == 1) {
-               return true;
-        } else if (decision == 2) {
-            return false;
-        }
-        return false;
+        return decision == 1;
     }
 
     public String chooseMapName() {
-        System.out.print("Enter a name for a new map: ");
+        String question = "Enter a name for a new map: ";
+        System.out.print(question);
         while (true) {
-            String newMapName = scanner.nextLine();
+            String newMapName = input.getUserInput();
             if (newMapName.matches("[a-zA-Z ]+")) {
-
                 return newMapName;
             } else {
                 System.out.println("Invalid input. Please enter a valid name (letters are a must, numbers can be used.");
-                System.out.print("Enter a name for a new map: ");
+                System.out.print(question);
             }
         }
     }
 
-    public int chooseMapWidth() {
-        System.out.print("Enter map-width: ");
-        while (true) {
-            try {
-                return scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine();
-                System.out.print("Enter map-width: ");
-            }
-        }
-    }
-
-    public List<Integer> chooseTerrainAmountAndSizes(List<Integer> terrainsSizes) {
+    public List<Integer> chooseTerrainAmountAndSizes() {
+        List<Integer> terrainsSizes = new ArrayList<>();
         System.out.println("Enter one integer for one terrain-entity. (Type '0' to finish):");
         while (true) {
-            int number = scanner.nextInt();
+            int number = input.getUserInputInt();
             if (number == 0) {
                 break;
             }
@@ -75,24 +60,24 @@ public class MapInputs {
         System.out.println("ArrayList with amount & sizes: " + terrainsSizes);
         return terrainsSizes;
     }
-
-    public int chooseResourceAmount() {
-        System.out.print("Enter amount of resource: ");
+    public int getUserInputNumber(String question) {
+        System.out.print(question);
         while (true) {
             try {
-                return scanner.nextInt();
-            } catch (InputMismatchException e) {
+                return input.getUserInputInt();
+            } catch (Exception e) {
                 System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine();
-                System.out.print("Enter amount of resource: ");
+                System.out.print(question);
             }
         }
     }
 
+    //TODO: put this function into the Randomizer class
     public int generateRandomInteger() {
         return random.nextInt(50) + 1;
     }
 
+    //TODO: put this function into the Randomizer class
     public List<Integer> generateRandomList() {
         List<Integer> randomList = new ArrayList<>();
         int listSize = random.nextInt(5) + 1;
@@ -102,27 +87,5 @@ public class MapInputs {
         }
 
         return randomList;
-    }
-
-    public String getMapName() {
-        return mapName;
-    }
-    public int getMapWidth() {
-        return mapWidth;
-    }
-    public List<Integer> getMountainsSizes() {
-        return mountainsSizes;
-    }
-
-    public List<Integer> getPitsSizes() {
-        return pitsSizes;
-    }
-
-    public int getMineralsAmount() {
-        return mineralsAmount;
-    }
-
-    public int getWaterAmount() {
-        return waterAmount;
     }
 }

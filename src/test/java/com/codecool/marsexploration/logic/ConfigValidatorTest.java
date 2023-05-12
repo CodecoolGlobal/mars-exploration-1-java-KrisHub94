@@ -19,6 +19,8 @@ class ConfigValidatorTest {
     ConfigValidator validator = new ConfigValidator();
     static Random random = new Random();
 
+    //TODO: for initialization use either @BeferoreEach or @BeforeAll
+
     @ParameterizedTest
     @MethodSource("provideArgumentsForValidateConfigTest")
     void validateConfig(ValidatorTestParams params) {
